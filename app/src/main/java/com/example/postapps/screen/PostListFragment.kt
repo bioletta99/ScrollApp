@@ -4,8 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -30,11 +28,13 @@ fun PostListFragment(
     val searchText by viewModel.searchQuery.collectAsState()
     val favorites by viewModel.favorites.collectAsState()
     val listState = rememberLazyListState()
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Post List") }
+                title = { Text("Post List") },
+                scrollBehavior = scrollBehavior
             )
 
         }

@@ -25,11 +25,13 @@ fun FavoriteFragment(
     viewModel: PostViewModel = viewModel()
 ) {
     val favorites by viewModel.favorites.collectAsState()
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 title = { Text("Preferiti") },
+                scrollBehavior = scrollBehavior,
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Indietro")

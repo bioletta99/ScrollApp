@@ -20,11 +20,13 @@ fun PostDetailFragment(
 ) {
     val post by viewModel.getPostById(postId).collectAsState(initial = null)
     val isFavorite by viewModel.isFavorite(postId).collectAsState(initial = false)
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 title = { Text("Dettaglio Post") },
+                scrollBehavior = scrollBehavior,
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back")
