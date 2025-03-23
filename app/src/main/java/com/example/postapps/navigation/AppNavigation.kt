@@ -8,14 +8,18 @@ import com.example.postapps.screen.PostDetailFragment
 import com.example.postapps.screen.PostListFragment
 import com.example.postapps.viewmodels.PostViewModel
 
-
 fun NavGraphBuilder.appNavigation(
     navController: NavController,
     viewModel: PostViewModel
 ) {
     composable(Screen.PostList.route) {
         PostListFragment(
-            onPostClick = { post -> navController.navigate(Screen.PostDetail.createRoute(post.id)) },
+            onPostClick = { post ->
+                navController.navigate(Screen.PostDetail.createRoute(post.id))
+            },
+            onFavoritesClick = {
+                navController.navigate(Screen.Favorites.route)
+            },
             onLoadMore = { viewModel.loadMorePosts() },
             viewModel = viewModel
         )
@@ -35,7 +39,9 @@ fun NavGraphBuilder.appNavigation(
     composable(Screen.Favorites.route) {
         FavoriteFragment(
             onBack = { navController.popBackStack() },
-            onPostClick = { post -> navController.navigate(Screen.PostDetail.createRoute(post.id)) },
+            onPostClick = { post ->
+                navController.navigate(Screen.PostDetail.createRoute(post.id))
+            },
             viewModel = viewModel
         )
     }

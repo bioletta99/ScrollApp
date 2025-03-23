@@ -3,8 +3,6 @@ package com.example.postapps.screen
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -12,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.postapps.viewmodels.PostViewModel
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -26,7 +23,7 @@ fun PostDetailFragment(
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            CenterAlignedTopAppBar(
                 title = { Text("Dettaglio Post") },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
@@ -43,7 +40,7 @@ fun PostDetailFragment(
                     .padding(16.dp)
             ) {
                 Text(text = it.title, style = MaterialTheme.typography.headlineSmall)
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(4.dp))
                 Text(text = it.body, style = MaterialTheme.typography.bodyLarge)
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(onClick = {

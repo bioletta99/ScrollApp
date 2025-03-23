@@ -49,7 +49,7 @@ class PostViewModel(
         viewModelScope.launch {
             _uiState.value = UiState.Loading
             try {
-                val posts = postService.getPosts()  // <--- senza parametri
+                val posts = postService.getPosts()
                 _allPosts.value = posts
                 _uiState.value = UiState.Success(posts)
             } catch (e: IOException) {
@@ -59,7 +59,6 @@ class PostViewModel(
             }
         }
     }
-
 
     fun loadMorePosts() {
         currentPage++

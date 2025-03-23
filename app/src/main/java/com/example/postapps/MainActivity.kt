@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.postapps.data.AppDatabase
 import com.example.postapps.networks.RetrofitInstance
+import com.example.postapps.screen.FavoriteFragment
 import com.example.postapps.screen.PostDetailFragment
 import com.example.postapps.screen.PostListFragment
 import com.example.postapps.ui.theme.PostAppsTheme
@@ -39,6 +40,7 @@ fun AppNavHost(navController: NavHostController, viewModel: PostViewModel) {
         composable("posts") {
             PostListFragment(
                 onPostClick = { post -> navController.navigate("details/${post.id}") },
+                onFavoritesClick = { navController.navigate("favorites") },
                 onLoadMore = { viewModel.loadMorePosts() },
                 viewModel = viewModel
             )
@@ -52,6 +54,13 @@ fun AppNavHost(navController: NavHostController, viewModel: PostViewModel) {
                     viewModel = viewModel
                 )
             }
+        }
+        composable("favorites") {
+            FavoriteFragment(
+                onBack = { navController.popBackStack() },
+                onPostClick = { post -> navController.navigate("details/${post.id}") },
+                viewModel = viewModel
+            )
         }
     }
 }
