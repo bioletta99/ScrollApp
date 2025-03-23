@@ -32,13 +32,12 @@ class PostViewModel(
     val favorites: StateFlow<List<Post>> = _favorites
     val searchQuery: StateFlow<String> = _searchQuery
 
-    val filteredPosts: StateFlow<List<Post>> = combine(_allPosts, _searchQuery) { posts, query ->
-        if (query.isBlank()) posts
-        else posts.filter { it.title.contains(query, ignoreCase = true) }
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    val filteredUiState: StateFlow<UiState> = combine(_allPosts, _searchQuery) { posts, query ->
+        val filtered = if (query.isBlank()) posts else posts.filter { it.title.contains(query, ignoreCase = true) }
+        UiState.Success(filtered)
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), UiState.Loading)
 
     private var currentPage = 1
-    private val pageSize = 20
 
     init {
         fetchPosts()

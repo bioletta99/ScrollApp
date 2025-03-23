@@ -3,14 +3,16 @@ package com.example.postapps
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.compose.*
 import com.example.postapps.data.AppDatabase
 import com.example.postapps.networks.RetrofitInstance
+import com.example.postapps.screen.BottomBarScreen
 import com.example.postapps.screen.FavoriteFragment
 import com.example.postapps.screen.PostDetailFragment
 import com.example.postapps.screen.PostListFragment
@@ -28,39 +30,73 @@ class MainActivity : ComponentActivity() {
                 val viewModel: PostViewModel = viewModel(
                     factory = PostViewModelFactory(postService, database)
                 )
-                AppNavHost(navController, viewModel)
-            }
-        }
-    }
-}
 
-@Composable
-fun AppNavHost(navController: NavHostController, viewModel: PostViewModel) {
-    NavHost(navController = navController, startDestination = "posts") {
-        composable("posts") {
-            PostListFragment(
-                onPostClick = { post -> navController.navigate("details/${post.id}") },
-                onFavoritesClick = { navController.navigate("favorites") },
-                onLoadMore = { viewModel.loadMorePosts() },
-                viewModel = viewModel
-            )
-        }
-        composable("details/{postId}") { backStackEntry ->
-            val postId = backStackEntry.arguments?.getString("postId")?.toIntOrNull()
-            postId?.let {
-                PostDetailFragment(
-                    postId = it,
-                    onBack = { navController.popBackStack() },
-                    viewModel = viewModel
+                val screens = listOf(
+                    BottomBarScreen.Home,
+                    BottomBarScreen.Favorites
                 )
+                val currentBackStack by navController.currentBackStackEntryAsState()
+                val currentDestination = currentBackStack?.destination?.route
+
+                Scaffold(
+                    bottomBar = {
+                        NavigationBar {
+                            screens.forEach { screen ->
+                                NavigationBarItem(
+                                    icon = { Icon(screen.icon, contentDescription = screen.label) },
+                                    label = { Text(screen.label) },
+                                    selected = currentDestination == screen.route,
+                                    onClick = {
+                                        navController.navigate(screen.route) {
+                                            popUpTo(navController.graph.findStartDestination().id) {
+                                                saveState = true
+                                            }
+                                            launchSingleTop = true
+                                            restoreState = true
+                                        }
+                                    }
+                                )
+                            }
+                        }
+                    }
+                ) { innerPadding ->
+                    NavHost(
+                        navController = navController,
+                        startDestination = BottomBarScreen.Home.route,
+                        modifier = Modifier.padding(innerPadding)
+                    ) {
+                        composable(BottomBarScreen.Home.route) {
+                            PostListFragment(
+                                onPostClick = { post ->
+                                    navController.navigate("details/${post.id}")
+                                },
+                                onLoadMore = { viewModel.loadMorePosts() },
+                                onFavoritesClick = {viewModel.favorites},
+                                viewModel = viewModel
+                            )
+                        }
+                        composable("details/{postId}") { backStackEntry ->
+                            val postId = backStackEntry.arguments?.getString("postId")?.toIntOrNull()
+                            postId?.let {
+                                PostDetailFragment(
+                                    postId = it,
+                                    onBack = { navController.popBackStack() },
+                                    viewModel = viewModel
+                                )
+                            }
+                        }
+                        composable(BottomBarScreen.Favorites.route) {
+                            FavoriteFragment(
+                                onBack = { /* disabilitato il back per i preferiti */ },
+                                onPostClick = { post ->
+                                    navController.navigate("details/${post.id}")
+                                },
+                                viewModel = viewModel
+                            )
+                        }
+                    }
+                }
             }
-        }
-        composable("favorites") {
-            FavoriteFragment(
-                onBack = { navController.popBackStack() },
-                onPostClick = { post -> navController.navigate("details/${post.id}") },
-                viewModel = viewModel
-            )
         }
     }
 }

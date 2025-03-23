@@ -39,15 +39,21 @@ fun PostDetailFragment(
                     .padding(padding)
                     .padding(16.dp)
             ) {
-                Text(text = it.title, style = MaterialTheme.typography.headlineSmall)
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(text = it.body, style = MaterialTheme.typography.bodyLarge)
+                Text(text = it.title, style = MaterialTheme.typography.titleLarge)
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(text = it.body, style = MaterialTheme.typography.bodyMedium)
                 Spacer(modifier = Modifier.height(16.dp))
-                Button(onClick = {
-                    if (isFavorite) viewModel.removeFromFavorites(it)
-                    else viewModel.addToFavorites(it)
-                }) {
-                    Text(if (isFavorite) "Rimuovi dai preferiti" else "Aggiungi ai preferiti")
+
+                Button(
+                    onClick = {
+                        if (isFavorite) viewModel.removeFromFavorites(it)
+                        else viewModel.addToFavorites(it)
+                    }
+                ) {
+                    Text(
+                        text = if (isFavorite) "Rimuovi dai preferiti"
+                        else "Aggiungi ai preferiti"
+                    )
                 }
             }
         } ?: Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {

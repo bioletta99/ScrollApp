@@ -26,7 +26,7 @@ fun PostListFragment(
     onLoadMore: () -> Unit,
     viewModel: PostViewModel = viewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.filteredUiState.collectAsState()
     val searchText by viewModel.searchQuery.collectAsState()
     val favorites by viewModel.favorites.collectAsState()
     val listState = rememberLazyListState()
@@ -34,13 +34,9 @@ fun PostListFragment(
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Post List") },
-                actions = {
-                    IconButton(onClick = onFavoritesClick) {
-                        Icon(Icons.Default.Favorite, contentDescription = "Vai ai preferiti")
-                    }
-                }
+                title = { Text("Post List") }
             )
+
         }
     ) { padding ->
         Column(modifier = Modifier.padding(padding).padding(8.dp)) {
