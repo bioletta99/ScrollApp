@@ -23,7 +23,6 @@ class PostViewModel(
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
-    val uiState: StateFlow<UiState> = _uiState
 
     private val _allPosts = MutableStateFlow<List<Post>>(emptyList())
     private val _favorites = MutableStateFlow<List<Post>>(emptyList())
@@ -96,11 +95,8 @@ class PostViewModel(
     }
 
     fun isFavorite(postId: Int): StateFlow<Boolean> {
-        val isFavoriteFlow = MutableStateFlow(false)
-        viewModelScope.launch {
-            isFavoriteFlow.value = _favorites.value.any { it.id == postId }
-        }
-        return isFavoriteFlow
+        return favorites.map { list -> list.any { it.id == postId } }
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
     }
 
     fun getPostById(postId: Int): StateFlow<Post?> {
