@@ -40,11 +40,17 @@ class MainActivity : ComponentActivity() {
 
                 Scaffold(
                     bottomBar = {
-                        NavigationBar {
+                        NavigationBar(containerColor = MaterialTheme.colorScheme.primary) {
                             screens.forEach { screen ->
                                 NavigationBarItem(
                                     icon = { Icon(screen.icon, contentDescription = screen.label) },
                                     label = { Text(screen.label) },
+                                    colors = NavigationBarItemDefaults.colors(
+                                        selectedIconColor = MaterialTheme.colorScheme.onPrimary,
+                                        selectedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                        unselectedIconColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f),
+                                        unselectedTextColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f)
+                                    ),
                                     selected = currentDestination == screen.route,
                                     onClick = {
                                         navController.navigate(screen.route) {

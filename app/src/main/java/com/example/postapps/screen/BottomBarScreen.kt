@@ -13,3 +13,5 @@ sealed class BottomBarScreen(
     data object Home : BottomBarScreen("posts", Icons.Filled.Home, "Home")
     data object Favorites : BottomBarScreen("favorites", Icons.Filled.Favorite, "Favorites")
 }
+
+
