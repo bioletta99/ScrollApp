@@ -15,15 +15,17 @@ Una semplice app Android realizzata con Jetpack Compose, che mostra una lista di
 Ecco alcune schermate dell'app:
 
 ### 🏠 Lista dei Post (con ricerca e preferiti)
-![Lista dei post](screenshots/post_list.png)
+<img src="screenshot/PostListScreen.png" alt="Lista dei post" width="300"/>
 
 ### 📄 Dettaglio di un Post
-![Dettaglio post](screenshots/post_detail.png)
+<img src="screenshot/DetailScreen.png" alt="Dettaglio post" width="300"/>
 
 ### 💜 Preferiti
-![Schermata preferiti](screenshots/favorites.png)
+<img src="screenshot/FavoriteScreen.png" alt="Schermata preferiti" width="300"/>
 
 ### 🔍 Ricerca per Titolo
+<img src="screenshot/filterTitleScreen.png" alt="Filtro titolo" width="300"/>
+
 
 # 🔧 Tech Stack
 
