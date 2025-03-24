@@ -10,6 +10,21 @@ Una semplice app Android realizzata con Jetpack Compose, che mostra una lista di
 
 - navigare tra Home e Preferiti tramite una BottomNavigation
 
+# 📱 Anteprima
+
+Ecco alcune schermate dell'app:
+
+### 🏠 Lista dei Post (con ricerca e preferiti)
+![Lista dei post](screenshots/post_list.png)
+
+### 📄 Dettaglio di un Post
+![Dettaglio post](screenshots/post_detail.png)
+
+### 💜 Preferiti
+![Schermata preferiti](screenshots/favorites.png)
+
+### 🔍 Ricerca per Titolo
+
 # 🔧 Tech Stack
 
 - Jetpack Compose → per costruire l'intera interfaccia utente
