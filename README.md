@@ -34,9 +34,7 @@ Restituisce una lista di post (id, title, body), usata per popolare la schermata
 
 # 📁 Struttura del progetto
 
-plaintext
-Copy
-Edit
+```plaintext
 com.example.postapps
 ├── data                 // Room + Models
 │   ├── Post.kt
@@ -70,6 +68,8 @@ com.example.postapps
 ├── MainActivity.kt
 ├── PostViewModelFactory.kt
 └── README.md ← 🟢 (questo file)
+```
+
 
 # 🧠 Funzionalità implementate
 
@@ -93,6 +93,7 @@ com.example.postapps
 
 Ecco le principali dipendenze che bisogna inserire nel libs.versions.toml:
 
+```plaintext
 toml
 Copy
 Edit
@@ -124,6 +125,7 @@ navigation-compose = "androidx.navigation:navigation-compose"
 
 coroutines-core = "org.jetbrains.kotlinx:kotlinx-coroutines-core"
 coroutines-android = "org.jetbrains.kotlinx:kotlinx-coroutines-android"
+```
 
 # 🏁 Come eseguire il progetto
 Clona il repository
