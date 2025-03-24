@@ -21,7 +21,7 @@ Ecco alcune schermate dell'app:
 <img src="screenshot/DetailScreen.png" alt="Dettaglio post" width="300"/>
 
 ### 💜 Preferiti
-<img src="screenshot/FavoriteScreen.png" alt="Schermata preferiti" width="300"/>
+<img src="screenshot/FavoriteListScreen.png" alt="Schermata preferiti" width="300"/>
 
 ### 🔍 Ricerca per Titolo
 <img src="screenshot/filterTitleScreen.png" alt="Filtro titolo" width="300"/>
